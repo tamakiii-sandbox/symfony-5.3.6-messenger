@@ -13,6 +13,11 @@ curl http://localhost:4566/health
 
 ## Usages
 ```sh
+# Symfony Messenger
+php bin/console debug:messenger
+
+# SQS localStack
 docker-compose exec localstack awslocal sqs list-queues
 docker-compose exec localstack awslocal sqs send-message --queue-url http://localhost:4566/000000000000/symfony-messenger --message-body 'Welcome to SQS'
+docker-compose exec localstack awslocal sqs receive-message --queue-url http://localhost:4566/000000000000/symfony-messenger
 ```
