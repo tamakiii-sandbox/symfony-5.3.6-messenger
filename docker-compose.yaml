@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  php:
+    build: .
+    working_dir: /local/symfony-5.3.6-messenger
+    command: symfony server:start --no-tls --port=80
+    ports:
+      - ${PORT_HTTP:-8000}:80
+    volumes:
+      - .:/local/symfony-5.3.6-messenger
+
+  localstack:
+    image: localstack/localstack:0.12.16
+    environment:
+      - SERVICES=sqs
+      - DEFAULT_REGION=ap-northeast-1
+      - DATA_DIR=/tmp/localstack/data
+      - DEBUG=1
+    ports:
+      - ${PORT_LOCALSTACK:-4566}:4566
+    volumes:
+      - ./docker/localstack/docker-entrypoint-initaws.d:/docker-entrypoint-initaws.d
+      - localstack_data:/tmp/localstack/data
+
+volumes:
+  localstack_data:
+
