@@ -5,7 +5,13 @@ framework:
 
         transports:
             # https://symfony.com/doc/current/messenger.html#transport-configuration
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                options:
+                    auto_setup: false
+                    region: ap-northeast-1
+                    access_key: test
+                    secret_key: test
             # failed: 'doctrine://default?queue_name=failed'
             # sync: 'sync://'
 
