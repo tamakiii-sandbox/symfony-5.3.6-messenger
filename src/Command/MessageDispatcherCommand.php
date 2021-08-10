@@ -46,10 +46,10 @@ class MessageDispatcherCommand extends Command
         }
 
         $notification = new SmsNotification('Look! I created a message!');
-        $this->bus->dispatch($notification);
+        $envelope = $this->bus->dispatch($notification);
         // $this->dispatchMessage(new SmsNotification('Look! I created a message!'));
 
-        $io->success(sprintf('dispatched: %s', $notification->getContent()));
+        $io->success(sprintf('dispatched: %s', $envelope->getMessage()->getContent()));
 
         return Command::SUCCESS;
     }
